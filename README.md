@@ -14,3 +14,4 @@ Shortcode Challenge
 * Django / Django Rest Framework
 * Pyjwt
 * PostgreSQL / Psycopg
+* Insomnia

@@ -20,7 +20,8 @@ class RegisterView(APIView):
         new_user = UserSerializer(data=request.data)
         if new_user.is_valid():
             new_user.save()
-            return Response({ 'message': f'Registration Successful, Welcome {new_user.username}' })
+            username = request.data.get('username')
+            return Response({ 'message': f'Registration Successful, Welcome {username}' })
         return Response(new_user.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 class LogInView(APIView):
