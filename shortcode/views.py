@@ -12,7 +12,7 @@ import string
 import random
 
 class CodeListView(APIView):
-    ''' Requests to /shortcodes '''
+    ''' Requests to shortcodes/ '''
 
     permission_classes=(IsAuthenticated,)
 
@@ -45,7 +45,7 @@ class CodeListView(APIView):
         return Response(new_code.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 class CodeStatsView(APIView):
-    ''' Requests to <short_url>/stats '''
+    ''' Requests to <short_url>/stats/ '''
 
     def get_shortcode(self, short_url):
         try:
@@ -66,7 +66,7 @@ class CodeStatsView(APIView):
         return Response(serialized_code.data, status=status.HTTP_200_OK)
 
 class CodeAccessView(CodeStatsView):
-    ''' Requests to <short_url>, redirect and inform stats '''
+    ''' Requests to <short_url>/, redirect and inform stats '''
 
     def get(self, request, short_url):
         code = self.get_shortcode(short_url)

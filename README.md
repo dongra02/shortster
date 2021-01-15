@@ -59,7 +59,7 @@ class JWTAuthentication(BasicAuthentication):
 
 Keeping a goal of simple and straightfoward, I created only register and log in views/urls for the User model. In a more robust product, I would create additional model fields as well as views for users to maintian profiles along with the potential for other features.
 
-With the User model functioning in Insomnia, I began work on the Shortcode model. I created fields I felt would address the user stories listed above.
+With the User model functioning in Insomnia, I began work on the Shortcode model. I created fields I felt would address the user stories listed above. I included 2 methods on the model to increment the access_count and set the the last_access date when appropriate.
 
 ```python
 class Shortcode(models.Model):
@@ -76,6 +76,22 @@ class Shortcode(models.Model):
 
     def add_access(self):
         self.access_count += 1
+
+    def set_access_date(self):
+        self.last_access = datetime.datetime.now()
 ```
 
-I included a method on the model to increment the access_count property to inform the /stats endpoint. The last_access date will be set upon each access (get request) directed to a particular collection member.
+With the model created I set about to create the views. I still have reservations about some of the naming conventions I selected, in retrospect I likely would have named the model something else so as to preserve shortcode. The views include list, stats and access views for a shortcode. A user, and only a user, has access to the list of their 'owned' shortcodes as well as the stats for a specific code. I added a third view for "access" to a code. This endpoint is accessbile to any user. Upon each request, the code's last_access and access_count fields are updated. The full_url is returned so the frontend can redirect the user to the proper site using a specified serializer.
+
+```python
+class CodeAccessView(CodeStatsView):
+    ''' Requests to <short_url>/, redirect and inform stats '''
+
+    def get(self, request, short_url):
+        code = self.get_shortcode(short_url)
+        code.add_access()
+        code.set_access_date()
+        code.save()
+        serialized_code = CodeAccessSerializer(code)
+        return Response(serialized_code.data, status=status.HTTP_200_OK)
+```
