@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 class Shortcode(models.Model):
     full_url = models.CharField(max_length=2000)
@@ -14,3 +15,7 @@ class Shortcode(models.Model):
 
     def add_access(self):
         self.access_count += 1
+
+    def set_access_date(self):
+        self.last_access = datetime.datetime.now()
+

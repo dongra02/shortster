@@ -71,6 +71,7 @@ class CodeAccessView(CodeStatsView):
     def get(self, request, short_url):
         code = self.get_shortcode(short_url)
         code.add_access()
+        code.set_access_date()
         code.save()
         serialized_code = CodeAccessSerializer(code)
         return Response(serialized_code.data, status=status.HTTP_200_OK)
