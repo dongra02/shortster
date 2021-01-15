@@ -95,3 +95,27 @@ class CodeAccessView(CodeStatsView):
         serialized_code = CodeAccessSerializer(code)
         return Response(serialized_code.data, status=status.HTTP_200_OK)
 ```
+
+## Front End
+* Javascript
+* React / react-router-dom
+* Http-proxy-middleware
+
+### Initial Wireframes
+
+Landing
+<div align='center'>
+  <img src='./images/shortster_landing.png' width='50%'>
+</div>
+Home
+<div align='center'>
+  <img src='./images/shortster-home.png' width='50%'>
+</div>
+Stats
+<div align='center'>
+  <img src='./images/shortster_stats.png' width='50%'>
+</div>
+
+### Process
+
+I began by boot-strapping with 'create-react-app' and utilized a template from my immersive course. In addition to the standard react files, this template includes http-proxy-middleware and the proxySetup.js files included. 
