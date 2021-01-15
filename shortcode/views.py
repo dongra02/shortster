@@ -43,3 +43,16 @@ class CodeListView(APIView):
             return Response(new_code.data, status=status.HTTP_201_CREATED)
         return Response(new_code.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
+class CodeStatsView(APIView):
+    ''' Requests to <shortcode>/stats '''
+
+    def get_shortcode(self, short_code):
+        try:
+            return Shortcode.get(pk=pk)
+        except Shortcode.DoesNotExist:
+            raise NotFound()
+    
+    def is_owner(self, shortcode, user):
+        if shortcode.owner.id != user.id:
+            raise PermissionDenied()
+

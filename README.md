@@ -1,12 +1,21 @@
 # Shortster
 
+## Brief and User Stories
+
+At MovingWorlds we're looking forward to launching an URL shortening service, so that users may have custom URLs to their long URLs.
+
+Specs:
 *	A user can submit a URL and receive a unique shortcode in response.
 *	A user can submit a URL and shortcode and will receive the chosen shortcode if it is available.
-*	A user can access a /<shortcode> endpoint and be redirected to the URL associated with that shortcode, if it exists. (frontend?)
+*	A user can access a /<shortcode> endpoint and be redirected to the URL associated with that shortcode, if it exists.
 *	All shortcodes can contain digits, upper case letters, and lowercase letters. It is case sensitive.
 *	Automatically allocated shortcodes are exactly 6 characters long.
 *	User submitted shortcodes must be at least 4 characters long.
 *	A user can access a /<shortcode>/stats endpoint in order to see when the shortcode was registered, when it was last accessed, and how many times it was accessed.
+
+Assumptions:
+* As I have not had experience creating shortcodes, I opted to generate strings that met the requirements listed so as to focus on creating a functional application.
+* Clicks/Access of shortcodes, for the purpose of informing the stats endpoint, will be considered as requests to that specific shortcode object.
 
 ## Back End
 * Python
@@ -14,10 +23,6 @@
 * Pyjwt
 * PostgreSQL / Psycopg
 * Insomnia
-
-### Assumptions
-* As I have not had experience creating shortcodes, I opted to generate strings that met the requirements listed so as to focus on creating a functional application.
-* Clicks/Access of shortcodes, for the purpose of informing the stats endpoint, will be considered as requests to that specific shortcode object.
 
 ### Initial Database
 <div align='center'>
