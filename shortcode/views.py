@@ -15,11 +15,7 @@ class CodeListView(APIView):
 
     permission_classes=(IsAuthenticated,)
 
-    def get(self, request):
-        codes = Shortcode.objects.filter(owner=request.user)
-        serialized_codes = ShortcodeSerializer(codes, many=True)
-        return Response(serialized_codes.data, status=status.HTTP_200_OK)
-
+    # Generate Unique Shortcode if not provided in request body
     def create_short_url(self):
         current_urls = [code.short_url for code in Shortcode.objects.all()]
         short_url = ''
@@ -27,6 +23,11 @@ class CodeListView(APIView):
             chars = list(string.ascii_letters) + [str(num) for num in range(10)]
             short_url = ''.join(random.choice(chars) for i in range(6))
         return short_url
+
+    def get(self, request):
+        codes = Shortcode.objects.filter(owner=request.user)
+        serialized_codes = ShortcodeSerializer(codes, many=True)
+        return Response(serialized_codes.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         request.data['owner'] = request.user.id
