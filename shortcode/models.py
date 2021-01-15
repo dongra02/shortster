@@ -6,6 +6,11 @@ class Shortcode(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     last_access = models.DateTimeField(null=True, blank=True)
     access_count = models.IntegerField(default=0)
+    owner = models.ForeignKey(
+        'jwt_auth.User',
+        related_name='short_urls',
+        on_delete=models.CASCADE
+    )
 
     def add_access(self):
         self.access_count += 1
