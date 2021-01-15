@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from .models import Shortcode
 from .serializers.common import ShortcodeSerializer
+from .serializers.access import CodeAccessSerializer
 
 import string
 import random
@@ -64,3 +65,12 @@ class CodeStatsView(APIView):
         serialized_code = ShortcodeSerializer(code)
         return Response(serialized_code.data, status=status.HTTP_200_OK)
 
+class CodeAccessView(CodeStatsView):
+    ''' Requests to <short_url>, redirect and inform stats '''
+
+    def get(self, request, short_url):
+        code = self.get_shortcode(short_url)
+        code.add_access()
+        code.save()
+        serialized_code = CodeAccessSerializer(code)
+        return Response(serialized_code.data, status=status.HTTP_200_OK)
