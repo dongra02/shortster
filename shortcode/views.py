@@ -20,7 +20,7 @@ class CodeListView(APIView):
         serialized_codes = ShortcodeSerializer(codes, many=True)
         return Response(serialized_codes.data, status=status.HTTP_200_OK)
 
-    def create_short_url():
+    def create_short_url(self):
         current_urls = [code.short_url for code in Shortcode.objects.all()]
         short_url = ''
         while (short_url == '' or short_url in current_urls):
@@ -30,11 +30,11 @@ class CodeListView(APIView):
 
     def post(self, request):
         request.data['owner'] = request.user.id
-        short_url = request.data.short_url
+        short_url = request.data['short_url']
         if short_url and (len(short_url) < 4 or not short_url.isalnum()):
             return Response({ 'message': 'Shortcode must be at least 4 characters long & contain alpha-numeric characters only.'}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         if not short_url:
-            short_url = create_short_url()
+            short_url = self.create_short_url()
         request.data['short_url'] = short_url
         new_code = ShortcodeSerializer(data=request.data)
         if new_code.is_valid():
