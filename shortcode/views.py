@@ -44,15 +44,23 @@ class CodeListView(APIView):
         return Response(new_code.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 class CodeStatsView(APIView):
-    ''' Requests to <shortcode>/stats '''
+    ''' Requests to <short_url>/stats '''
 
-    def get_shortcode(self, short_code):
+    def get_shortcode(self, short_url):
         try:
-            return Shortcode.get(pk=pk)
+            return Shortcode.objects.get(short_url=short_url)
         except Shortcode.DoesNotExist:
             raise NotFound()
     
     def is_owner(self, shortcode, user):
         if shortcode.owner.id != user.id:
+            print('owner id', shortcode.owner.id)
+            print('user id', user.id)
             raise PermissionDenied()
+
+    def get(self, request, short_url):
+        code = self.get_shortcode(short_url)
+        self.is_owner(code, request.user)
+        serialized_code = ShortcodeSerializer(code)
+        return Response(serialized_code.data, status=status.HTTP_200_OK)
 
