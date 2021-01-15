@@ -23,7 +23,7 @@ class CodeListView(APIView):
     def create_short_url():
         current_urls = [code.short_url for code in Shortcode.objects.all()]
         short_url = ''
-        while (short_url = '' or short_url in current_urls):
+        while (short_url == '' or short_url in current_urls):
             chars = list(string.ascii_letters) + [str(num) for num in range(10)]
             short_url = ''.join(random.choice(chars) for i in range(6))
         return short_url
