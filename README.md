@@ -15,3 +15,10 @@ Shortcode Challenge
 * Pyjwt
 * PostgreSQL / Psycopg
 * Insomnia
+
+## Database Diagram & Wireframes
+
+ ### Initial Database
+ <div align='center'>
+  <img src='./images/initial-db.png'>
+ </div>
