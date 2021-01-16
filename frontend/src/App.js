@@ -1,10 +1,13 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { ThemeProvider } from '@material-ui/core/styles'
-import theme from './styles/theme'
 
 import Header from './components/common/Header'
 import Home from './components/common/Home'
+
+import { getUserCodes } from './lib/api'
+
+import { ThemeProvider } from '@material-ui/core/styles'
+import theme from './styles/theme'
 
 class App extends React.Component {
   state = {
@@ -17,14 +20,18 @@ class App extends React.Component {
   //if error, clear token
 
   handleLogin = async () => {
-    // fetch userCodes and include in setState
-    this.setState({ isAuthenticated: true })
+    try {
+      const response = await getUserCodes()
+      this.setState({ isAuthenticated: true, userCodes: response.data })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   handleLogout = () => {
+    localStorage.removeItem('token')
     this.setState({ userCodes: [], isAuthenticated: false })
   }
-
       
   render() {
 
