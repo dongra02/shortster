@@ -10,4 +10,7 @@ export const register = (formData) => axios.post(`${baseUrl}/register/`, formDat
 
 export const login = (formData) => axios.post(`${baseUrl}/auth/login/`, formData)
 
+
 export const getUserCodes = () => axios.get(`${baseUrl}/shortcodes/`, withHeaders())
+
+export const getCodeStats = (shortUrl) => axios.get(`${baseUrl}/shortcodes/${shortUrl}/stats/`, withHeaders())

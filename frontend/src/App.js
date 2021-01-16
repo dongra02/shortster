@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import Header from './components/common/Header'
 import Home from './components/common/Home'
+import CodeStats from './components/code/CodeStats'
 
 import { getUserCodes } from './lib/api'
 
@@ -43,6 +44,7 @@ class App extends React.Component {
           <Header isAuthenticated={isAuthenticated} handleLogout={this.handleLogout}/>
           <Switch>
             <Route exact path="/" render={ () => <Home userCodes={userCodes} isAuthenticated={isAuthenticated} handleLogin={this.handleLogin}/> } />
+            <Route path="/:shortUrl/stats" component={CodeStats} />
           </Switch>
         </BrowserRouter>
       </ThemeProvider>
