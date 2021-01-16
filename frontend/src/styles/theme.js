@@ -7,6 +7,10 @@ const theme = createMuiTheme({
     primary: {
       main: '#43bce7'
     }
+  },
+
+  typography: {
+    fontFamily: '"open-sans", Helvetica, Arial, "sans-serif"'
   }
 })
 
