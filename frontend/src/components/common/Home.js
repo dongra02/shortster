@@ -1,15 +1,15 @@
 import React from 'react'
 import UserForm from '../auth/UserForm'
 
-const Home = ({ userCodes }) => {
+const Home = ({ handleLogin, userCodes, isAuthenticated }) => {
   
 
   return (
     <div>
-      {userCodes && userCodes.map(code => (
+      {isAuthenticated && userCodes.map(code => (
         <h1 key={code}>{code}</h1>
       ))}
-      {!userCodes && <UserForm />}
+      {!isAuthenticated && <UserForm handleLogin={handleLogin}/>}
     </div>
   )
 }

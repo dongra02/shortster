@@ -1,6 +1,7 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import { login } from '../../lib/api'
 
 
 class UserForm extends React.Component {
@@ -11,7 +12,8 @@ class UserForm extends React.Component {
       username: '',
       password: '',
       passwordConfirm: ''
-    }
+    },
+    formErrors: {}
   }
   
   changeMode = () => {
@@ -24,10 +26,17 @@ class UserForm extends React.Component {
     this.setState({ formData })
   }
 
-  handleSubmit = () => {
-    // use try catch for api of course
+  handleSubmit = async () => {
     if (this.state.login) {
       console.log('logging in with... ', this.state.formData)
+      try {
+        const response = await login(this.state.formData)
+        localStorage.setItem('token', response.data.token)
+        this.props.handleLogin()
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
     }
     if (!this.state.login) {
       console.log('registering with... ', this.state.formData)
@@ -42,8 +51,8 @@ class UserForm extends React.Component {
     return (
       <form>
         <TextField id='username' label='username' value={username}  onChange={this.handleChange}/>
-        <TextField id='password' label='password' value={password} onChange={this.handleChange}/>
-        {!login && <TextField id='passwordConfirm' label='confirm password' value={passwordConfirm} onChange={this.handleChange}/>}
+        <TextField id='password' label='password' type='password' value={password} onChange={this.handleChange}/>
+        {!login && <TextField id='passwordConfirm' type='password' label='confirm password' value={passwordConfirm} onChange={this.handleChange}/>}
         <Button variant='outlined' onClick={this.handleSubmit}>{ login ? 'Login' : 'Register' }</Button>
         <Button variant='outlined' onClick={this.changeMode}>{ login ? 'I\'m a New User' : 'I Have An Account' }</Button>
       </form>
