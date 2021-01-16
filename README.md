@@ -118,4 +118,6 @@ Stats
 
 ### Process
 
-I began by boot-strapping with 'create-react-app' and utilized a template from my immersive course. In addition to the standard react files, this template includes http-proxy-middleware and the proxySetup.js files included. 
+I began by boot-strapping with 'create-react-app' and utilized a template from my immersive course. In addition to the standard react files, this template includes 'http-proxy-middleware' and the proxySetup.js file included. I then installed 'react-router-dom' as well as Material UI. I have been tinkering with MUI a bit and wanted to work a little more with a basic ThemeProvider for this project. The default overrides are included in the theme.js file.
+
+The first steps involved laying out the basic routes and component setup. Sticking with simple, this app should only need a user-forms component to handle login and registration, a home component for the list of shortcodes, as well as a stats compenent to view information for each shortcode. If a user is logged in, the landing page should display their codes with ability to view stats or access the code. If not logged in, users should only have option to log in or register for the application.
