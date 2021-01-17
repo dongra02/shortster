@@ -16,9 +16,17 @@ class App extends React.Component {
     isAuthenticated: false
   }
 
-  //On mount, check for token, if there, run request for codes
-  //if no error on codes,setstate include isAuth to true
-  //if error, clear token
+  componentDidMount = async () => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      try {
+        const response = await getUserCodes()
+        this.setState({ isAuthenticated: true, userCodes: response.data })
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  }
 
   handleLogin = async () => {
     try {

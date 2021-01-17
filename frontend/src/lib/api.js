@@ -6,7 +6,7 @@ const withHeaders = () => {
   return { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
 }
 
-export const register = (formData) => axios.post(`${baseUrl}/register/`, formData)
+export const register = (formData) => axios.post(`${baseUrl}/auth/register/`, formData)
 
 export const login = (formData) => axios.post(`${baseUrl}/auth/login/`, formData)
 
