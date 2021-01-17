@@ -1,9 +1,11 @@
 /* eslint-disable camelcase */
 import React from 'react'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
+
 import { register, login } from '../../lib/api'
 
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid'
 
 class UserForm extends React.Component {
 
@@ -51,13 +53,24 @@ class UserForm extends React.Component {
     const { username, password, password_confirmation } = this.state.formData
 
     return (
-      <form>
-        <TextField id='username' label='username' value={username}  onChange={this.handleChange}/>
-        <TextField id='password' label='password' type='password' value={password} onChange={this.handleChange}/>
-        {!login && <TextField id='password_confirmation' type='password' label='confirm password' value={password_confirmation} onChange={this.handleChange}/>}
-        <Button variant='outlined' onClick={this.handleSubmit}>{ login ? 'Login' : 'Register' }</Button>
-        <Button variant='outlined' onClick={this.changeMode}>{ login ? 'I\'m a New User' : 'I Have An Account' }</Button>
-      </form>
+      <Grid container spacing={2} direction='column' justify='center' alignItems='center'>
+        <Grid item>
+          <TextField id='username' label='username' value={username}  onChange={this.handleChange} fullWidth/>
+        </Grid>
+        <Grid item>
+          <TextField id='password' label='password' type='password' value={password} onChange={this.handleChange}/>
+        </Grid>
+        {!login && 
+        <Grid item>
+          <TextField id='password_confirmation' type='password' label='confirm password' value={password_confirmation} onChange={this.handleChange}/>
+        </Grid>}
+        <Grid item>
+          <Button variant='outlined' onClick={this.handleSubmit}>{ login ? 'Login' : 'Register' }</Button>
+        </Grid>
+        <Grid item>
+          <Button variant='outlined' onClick={this.changeMode}>{ login ? 'I\'m a New User' : 'I Have An Account' }</Button>
+        </Grid>
+      </Grid>
     )
   }
 }
