@@ -1,10 +1,13 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 import { getCodeStats } from '../../lib/api'
 import { isShortCodeOwner } from '../../lib/auth'
 
+import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 
 const CodeStats = (props) => {
 
@@ -26,7 +29,7 @@ const CodeStats = (props) => {
   while (!shortcode) return <div>loading</div>
 
   return (
-    <div>
+    <Container>
       {isShortCodeOwner(shortcode.owner) &&
         <div>
           <Typography>Short Url: {shortcode.short_url}</Typography>
@@ -35,8 +38,10 @@ const CodeStats = (props) => {
           <Typography>Last Accessed: {shortcode.last_access}</Typography>
           <Typography>Created: {shortcode.created}</Typography>
         </div>}
-      {!isShortCodeOwner && <div>fuck off</div>}
-    </div>
+      <Button>
+        <Link to={`/${shortcode.short_url}/edit`} >Edit</Link>
+      </Button>
+    </Container>
   )
 }
 

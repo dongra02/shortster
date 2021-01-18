@@ -14,6 +14,7 @@ const CodeCreate = () => {
     const newFormData = { ...formData, [e.target.id]: e.target.value }
     setFormData(newFormData)
   }
+  
   const handleSubmit = async () => {
     try {
       const response = await createShortcode(formData)

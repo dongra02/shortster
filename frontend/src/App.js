@@ -5,6 +5,7 @@ import Header from './components/common/Header'
 import Home from './components/common/Home'
 import CodeStats from './components/code/CodeStats'
 import CodeCreate from './components/code/CodeCreate'
+import CodeEdit from './components/code/CodeEdit'
 
 import { ThemeProvider } from '@material-ui/core/styles'
 import theme from './styles/theme'
@@ -19,6 +20,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/:shortUrl/stats" component={CodeStats} />
+          <Route path="/:shortUrl/edit" component={CodeEdit} />
           <Route path="/new" component={CodeCreate} />
         </Switch>
       </BrowserRouter>
