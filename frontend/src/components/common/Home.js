@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import UserForm from '../auth/UserForm'
 import CodeList from '../code/CodeList'
+
+import { getUserCodes } from '../../lib/api'
 
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
@@ -12,8 +14,21 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-const Home = ({ handleLogin, userCodes, isAuthenticated }) => {
-  console.log(userCodes)
+const Home = ({ handleLogin, isAuthenticated }) => {
+  
+  const [userCodes, setUserCodes] = useState([])
+  
+  useEffect(() => {
+    const getCodes = async () => {
+      try {
+        const response = await getUserCodes()
+        setUserCodes(response.data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    if (isAuthenticated) getCodes()
+  }, [isAuthenticated])
 
   const classes = useStyles()
 

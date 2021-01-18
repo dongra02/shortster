@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React from 'react'
+import React, { useState } from 'react'
 
 import { register, login } from '../../lib/api'
 
@@ -23,10 +23,10 @@ const UserForm = ({ handleLogin }) => {
 
   const classes = useStyles()
   
-  const [loginMode, setMode] = React.useState(true)
+  const [loginMode, setMode] = useState(true)
   
   const initialFormData = { username: '', password: '', password_confirmation: '' }
-  const [formData, setFormData] = React.useState(initialFormData)
+  const [formData, setFormData] = useState(initialFormData)
   
   // const [formErrors, setFormErrors] = React.useState({})
 
