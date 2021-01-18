@@ -11,6 +11,11 @@ from .serializers.update import CodeUpdateSerializer
 import string
 import random
 
+def check_url(url):
+    return len(url) >= 4 and url.isalnum()
+
+bad_url_message = 'Shortcode must be at least 4 characters long & contain alpha-numeric characters only.'
+    
 class CodeListView(APIView):
     ''' Requests to shortcodes/ '''
 
@@ -33,8 +38,8 @@ class CodeListView(APIView):
     def post(self, request):
         request.data['owner'] = request.user.id
         short_url = request.data['short_url']
-        if short_url and (len(short_url) < 4 or not short_url.isalnum()):
-            return Response({ 'message': 'Shortcode must be at least 4 characters long & contain alpha-numeric characters only.'}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        if short_url and not check_url(short_url):
+            return Response({ 'message': bad_url_message}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         if not short_url:
             short_url = self.create_short_url()
         request.data['short_url'] = short_url
@@ -68,6 +73,8 @@ class CodeStatsView(APIView):
     def put(self, request, short_url):
         code_to_update = self.get_shortcode(short_url)
         self.is_owner(code_to_update, request.user)
+        if not check_url(request.data['short_url']):
+            return Response({ 'message': bad_url_message }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         updated_code = CodeUpdateSerializer(code_to_update, data=request.data)
         if updated_code.is_valid():
             updated_code.save()

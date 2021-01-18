@@ -1,5 +1,8 @@
 from django.db import models
+from django.db.models.functions import Length
 import datetime
+
+models.CharField.register_lookup(Length)
 
 class Shortcode(models.Model):
     full_url = models.CharField(max_length=2000)
