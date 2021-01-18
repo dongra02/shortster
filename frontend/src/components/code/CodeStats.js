@@ -21,7 +21,7 @@ const CodeStats = (props) => {
       }
     }
     getShortcode()
-  }, [shortUrl])
+  }, [])
 
   while (!shortcode) return <div>loading</div>
 

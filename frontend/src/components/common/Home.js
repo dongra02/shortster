@@ -33,7 +33,7 @@ const Home = () => {
       }
     }
     getCodes()
-  }, [loggedIn])
+  }, [])
 
   const classes = useStyles()
 

@@ -69,13 +69,16 @@ class CodeStatsView(APIView):
         code_to_update = self.get_shortcode(short_url)
         self.is_owner(code_to_update, request.user)
         updated_code = ShortcodeSerializer(code_to_update, data=request.data)
-        print(updated_code)
         if updated_code.is_valid():
             updated_code.save()
             return Response(updated_code.data, status=status.HTTP_202_ACCEPTED)
         return Response(updated_code.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
-    
+    def delete(self, request, short_url):
+        code_to_delete = self.get_shortcode(short_url)
+        self.is_owner(code_to_delete, request.user)
+        code_to_delete.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class CodeAccessView(CodeStatsView):
     ''' Requests to <short_url>/, redirect and inform stats '''
