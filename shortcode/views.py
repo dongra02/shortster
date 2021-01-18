@@ -2,11 +2,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import NotFound, PermissionDenied
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .models import Shortcode
 from .serializers.common import ShortcodeSerializer
-from .serializers.access import CodeAccessSerializer
+from .serializers.update import CodeUpdateSerializer
 
 import string
 import random
@@ -14,7 +14,7 @@ import random
 class CodeListView(APIView):
     ''' Requests to shortcodes/ '''
 
-    permission_classes=(IsAuthenticated,)
+    permission_classes=(IsAuthenticatedOrReadOnly,)
 
     # Generate Unique Shortcode if not provided in request body
     def create_short_url(self):
@@ -47,6 +47,8 @@ class CodeListView(APIView):
 class CodeStatsView(APIView):
     ''' Requests to <short_url>/stats/ '''
 
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
     def get_shortcode(self, short_url):
         try:
             return Shortcode.objects.get(short_url=short_url)
@@ -55,8 +57,6 @@ class CodeStatsView(APIView):
     
     def is_owner(self, shortcode, user):
         if shortcode.owner.id != user.id:
-            print('owner id', shortcode.owner.id)
-            print('user id', user.id)
             raise PermissionDenied()
 
     def get(self, request, short_url):
@@ -68,7 +68,7 @@ class CodeStatsView(APIView):
     def put(self, request, short_url):
         code_to_update = self.get_shortcode(short_url)
         self.is_owner(code_to_update, request.user)
-        updated_code = ShortcodeSerializer(code_to_update, data=request.data)
+        updated_code = CodeUpdateSerializer(code_to_update, data=request.data)
         if updated_code.is_valid():
             updated_code.save()
             return Response(updated_code.data, status=status.HTTP_202_ACCEPTED)
@@ -88,5 +88,5 @@ class CodeAccessView(CodeStatsView):
         code.add_access()
         code.set_access_date()
         code.save()
-        serialized_code = CodeAccessSerializer(code)
+        serialized_code = CodeUpdateSerializer(code)
         return Response(serialized_code.data, status=status.HTTP_200_OK)
