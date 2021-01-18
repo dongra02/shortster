@@ -19,6 +19,10 @@ const Home = ({ handleLogin, isAuthenticated }) => {
   const [userCodes, setUserCodes] = useState([])
   
   useEffect(() => {
+    
+  })
+
+  useEffect(() => {
     const getCodes = async () => {
       try {
         const response = await getUserCodes()

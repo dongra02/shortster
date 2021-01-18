@@ -1,47 +1,38 @@
 /* eslint-disable camelcase */
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { getCodeStats } from '../../lib/api'
 
 import Typography from '@material-ui/core/Typography'
 
-class CodeStats extends React.Component {
-  state = {
-    shortcode: null
-  }
+const CodeStats = (props) => {
 
-  componentDidMount = () => {
-    this.getCode()
-  }
+  const [shortcode, setShortCode] = useState(null)
+  const shortUrl = props.match.params.shortUrl
 
-  getCode = async () => {
-    try {
-      const shortUrl = this.props.match.params.shortUrl
-      const response = await getCodeStats(shortUrl)
-      console.log(response)
-      this.setState({ shortcode: response.data })
-    } catch (err) {
-      console.log(err)
+  useEffect(() => {
+    const getShortcode = async() => {
+      try {
+        const response = await getCodeStats(shortUrl)
+        setShortCode(response.data)
+      } catch (err) {
+        console.log(err)
+      }
     }
-  }
+    getShortcode()
+  }, [shortUrl])
 
-  render() {
-    
-    while (!this.state.shortcode) return <div>loading</div>
+  while (!shortcode) return <div>loading</div>
 
-    const { full_url, short_url, last_access, access_count, created } = this.state.shortcode
-
-
-    return (
-      <div>
-        <Typography>Short Url: {short_url}</Typography>
-        <Typography>Full Url: {full_url}</Typography>
-        <Typography>Access Count: {access_count}</Typography>
-        <Typography>Last Accessed: {last_access}</Typography>
-        <Typography>Created: {created}</Typography>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <Typography>Short Url: {shortcode.short_url}</Typography>
+      <Typography>Full Url: {shortcode.full_url}</Typography>
+      <Typography>Access Count: {shortcode.access_count}</Typography>
+      <Typography>Last Accessed: {shortcode.last_access}</Typography>
+      <Typography>Created: {shortcode.created}</Typography>
+    </div>
+  )
 }
 
 export default CodeStats
