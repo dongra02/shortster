@@ -13,4 +13,6 @@ export const login = (formData) => axios.post(`${baseUrl}/auth/login/`, formData
 
 export const getUserCodes = () => axios.get(`${baseUrl}/shortcodes/`, withHeaders())
 
+export const createShortcode = (formData) => axios.post(`${baseUrl}/shortcodes/`, formData, withHeaders())
+
 export const getCodeStats = (shortUrl) => axios.get(`${baseUrl}/shortcodes/${shortUrl}/stats/`, withHeaders())

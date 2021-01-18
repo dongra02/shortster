@@ -11,7 +11,6 @@ export const getPayload = () => {
 }
 
 export const isAuthenticated = () => {
-  console.log('authenticating')
   const payload = getPayload()
   if (!payload) return false
   const now = Math.floor(Date.now() / 1000)

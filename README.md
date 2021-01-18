@@ -122,4 +122,3 @@ I began by boot-strapping with 'create-react-app' and utilized a template from m
 
 The first steps involved laying out the basic routes and component setup. Sticking with simple, this app should only need a user-forms component to handle login and registration, a home component for the list of shortcodes, as well as a stats compenent to view information for each shortcode. If a user is logged in, the landing page should display their codes with ability to view stats or access the code. If not logged in, users should only have option to log in or register for the application.
 
-I opted to use state the App.js level, and thus have access to an 'isAuthenticated' prop through the app to dictate a users actions and views.
