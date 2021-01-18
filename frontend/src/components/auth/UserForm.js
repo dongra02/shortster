@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
+const initialFormData = { username: '', password: '', password_confirmation: '' }
 
 const UserForm = ({ handleLogin }) => {
 
@@ -25,7 +26,6 @@ const UserForm = ({ handleLogin }) => {
   
   const [loginMode, setMode] = useState(true)
   
-  const initialFormData = { username: '', password: '', password_confirmation: '' }
   const [formData, setFormData] = useState(initialFormData)
   
   // const [formErrors, setFormErrors] = React.useState({})

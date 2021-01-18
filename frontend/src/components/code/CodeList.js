@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button'
 
 const CodeList = ({ userCodes }) => {
 
+  while (!userCodes) return <div>loading</div>
+
   return (
     userCodes.map(code => {
       return (

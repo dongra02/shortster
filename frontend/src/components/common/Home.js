@@ -4,6 +4,7 @@ import UserForm from '../auth/UserForm'
 import CodeList from '../code/CodeList'
 
 import { getUserCodes } from '../../lib/api'
+import { isAuthenticated } from '../../lib/auth'
 
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
@@ -14,13 +15,13 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-const Home = ({ handleLogin, isAuthenticated }) => {
-  
-  const [userCodes, setUserCodes] = useState([])
-  
-  useEffect(() => {
-    
-  })
+const Home = () => {
+
+  const [loggedIn, setLoggedIn] = useState(isAuthenticated())
+
+  const handleLogin = () => setLoggedIn(true)
+
+  const [userCodes, setUserCodes] = useState(null)
 
   useEffect(() => {
     const getCodes = async () => {
@@ -28,19 +29,19 @@ const Home = ({ handleLogin, isAuthenticated }) => {
         const response = await getUserCodes()
         setUserCodes(response.data)
       } catch (err) {
-        console.log(err)
+        console.log(err.response.data)
       }
     }
-    if (isAuthenticated) getCodes()
-  }, [isAuthenticated])
+    getCodes()
+  }, [loggedIn])
 
   const classes = useStyles()
 
   return (
     <div>
       <Container className={classes.main}>
-        {!isAuthenticated && <UserForm handleLogin={handleLogin}/>}
-        {isAuthenticated && <CodeList userCodes={userCodes} />}
+        {!loggedIn && <UserForm handleLogin={handleLogin}/>}
+        {loggedIn && <CodeList userCodes={userCodes}/>}
       </Container>
     </div>
   )

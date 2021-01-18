@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import Header from './components/common/Header'
@@ -11,24 +11,12 @@ import theme from './styles/theme'
 
 const App = () => {
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-
-  const handleLogin = () => {
-    setIsAuthenticated(true)
-  }
-
-  const handleLogout = () => {
-    localStorage.removeItem('token')
-    setIsAuthenticated(false)
-  }
-
-
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Header isAuthenticated={isAuthenticated} handleLogout={handleLogout}/>
+        <Header />
         <Switch>
-          <Route exact path="/" render={ () => <Home isAuthenticated={isAuthenticated} handleLogin={handleLogin}/> } />
+          <Route exact path="/" component={Home} />
           <Route path="/:shortUrl/stats" component={CodeStats} />
         </Switch>
       </BrowserRouter>
