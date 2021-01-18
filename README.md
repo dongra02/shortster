@@ -81,7 +81,7 @@ class Shortcode(models.Model):
         self.last_access = datetime.datetime.now()
 ```
 
-With the model created I set about to create the views. I still have reservations about some of the naming conventions I selected, in retrospect I likely would have named the model something else so as to preserve shortcode. The views include list, stats and access views for a shortcode. A user, and only a user, has access to the list of their 'owned' shortcodes as well as the stats for a specific code. I added a third view for "access" to a code. This endpoint is accessbile to any user. Upon each request, the code's last_access and access_count fields are updated. The full_url is returned so the frontend can redirect the user to the proper site using a specified serializer.
+With the model created I set about to create the views. I still have reservations about some of the naming conventions I selected, in retrospect I likely would have named the model something else so as to preserve shortcode. The views include list, stats and access views for a shortcode. A user, and only a user, has access to the list of their 'owned' shortcodes as well as the stats for a specific code. I added a third view for "access" to a code. This endpoint is accessable to any user. Upon each request, the code's last_access and access_count fields are updated. The full_url is returned so the frontend can redirect the user to the proper site using a specified serializer.
 
 ```python
 class CodeAccessView(CodeStatsView):
@@ -120,5 +120,12 @@ Stats
 
 I began by boot-strapping with 'create-react-app' and utilized a template from my immersive course. In addition to the standard react files, this template includes 'http-proxy-middleware' and the proxySetup.js file included. I then installed 'react-router-dom' as well as Material UI. I have been tinkering with MUI a bit and wanted to work a little more with a basic ThemeProvider for this project. The default overrides are included in the theme.js file.
 
-The first steps involved laying out the basic routes and component setup. Sticking with simple, this app should only need a user-forms component to handle login and registration, a home component for the list of shortcodes, as well as a stats compenent to view information for each shortcode. If a user is logged in, the landing page should display their codes with ability to view stats or access the code. If not logged in, users should only have option to log in or register for the application.
+The first steps involved laying out the basic routes and component setup. Sticking with simple, this app should only need:
+
+* a User Forms component to handle login and registration
+* a Home component for the list of shortcodes
+* a Stats compenent to view information for each shortcode
+* A Code Forms component to handle create/update of shortcodes
+
+If a user is logged in, the landing page should display their codes with ability to view stats or access the code. If not logged in, users should only have option to log in or register for the application.
 
