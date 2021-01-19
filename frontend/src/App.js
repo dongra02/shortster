@@ -6,6 +6,7 @@ import Home from './components/common/Home'
 import CodeStats from './components/code/CodeStats'
 import CodeCreate from './components/code/CodeCreate'
 import CodeEdit from './components/code/CodeEdit'
+import CodeAccess from './components/code/CodeAccess'
 
 import Wrapper from './elements/Wrapper'
 
@@ -22,9 +23,10 @@ const App = () => {
         <Wrapper>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/new" component={CodeCreate} />
             <Route path="/:shortUrl/stats" component={CodeStats} />
             <Route path="/:shortUrl/edit" component={CodeEdit} />
-            <Route path="/new" component={CodeCreate} />
+            <Route path="/:shortUrl" component={CodeAccess} />
           </Switch>
         </Wrapper>
       </BrowserRouter>

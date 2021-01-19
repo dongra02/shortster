@@ -23,3 +23,5 @@ export const getCodeStats = (shortUrl) => axios.get(`${baseShortcodes}/${shortUr
 export const updateShortcode = (shortUrl, formData) => axios.put(`${baseShortcodes}/${shortUrl}/stats/`, formData, withHeaders())
 
 export const deleteShortcode = (shortUrl) => axios.delete(`${baseShortcodes}/${shortUrl}/stats/`, withHeaders())
+
+export const accessShortCode = (shortUrl) => axios.get(`${baseShortcodes}/${shortUrl}/`)
