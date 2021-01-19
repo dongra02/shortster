@@ -14,7 +14,7 @@ const CodeCreate = (props) => {
 
   const handleChange = (e) => {
     const newFormData = { ...formData, [e.target.id]: e.target.value }
-    const newFormerrors = { ...formErrors, [e.target.id]: e.target.value }
+    const newFormerrors = { ...formErrors, [e.target.id]: '' }
     setFormData(newFormData)
     setFormErrors(newFormerrors)
   }

@@ -1,10 +1,9 @@
 /* eslint-disable camelcase */
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-// import Grid from '@material-ui/core/Grid'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
-import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
@@ -20,24 +19,31 @@ const StyledTableRow = withStyles(() => ({
   }
 }))(TableRow)
 
+const StyledTableCell = withStyles(() => ({
+  root: {
+    fontSize: '1.2rem'
+  }
+}))(TableCell)
+
 const CodeListItem = ({ short_url, full_url, created }) => {
+
+  if (full_url.length > 20) {
+    full_url = `${full_url.slice(0, 20)}...`
+  }
+
+  let createdDate = new Date(created)
+  createdDate = createdDate.toLocaleDateString()
 
   return (
     <StyledTableRow>
-      <TableCell>
-        <Typography>{short_url}</Typography>
-      </TableCell>
-      <TableCell>
-        <Typography>{full_url}</Typography>
-      </TableCell>
-      <TableCell>
-        <Typography>{created}</Typography>
-      </TableCell>
+      <StyledTableCell>{short_url}</StyledTableCell>
+      <StyledTableCell>{full_url}</StyledTableCell>
+      <StyledTableCell>{createdDate}</StyledTableCell>
       <TableCell align='center'>
-        <IconButton>
+        <IconButton component={Link} to={`/${short_url}/stats`}>
           <InfoOutlinedIcon fontSize='large'/>
         </IconButton>
-        <IconButton>
+        <IconButton component={Link} to={`/${short_url}/edit`}>
           <EditOutlinedIcon color='primary' fontSize='large'/>
         </IconButton>
         <IconButton>
