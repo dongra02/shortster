@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
-import UserForm from '../auth/UserForm'
+import LoginForm from '../auth/LoginForm'
 import CodeList from '../code/CodeList'
 
 import { getUserCodes } from '../../lib/api'
 import { isAuthenticated } from '../../lib/auth'
-
-import Container from '@material-ui/core/Container'
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles( theme => ({
-  main: {
-    marginTop: theme.spacing(7),
-    padding: theme.spacing(2)
-  }
-}))
-
 const Home = () => {
 
   const [loggedIn, setLoggedIn] = useState(isAuthenticated())
@@ -36,13 +25,11 @@ const Home = () => {
     if (loggedIn) getCodes()
   }, [loggedIn])
 
-  const classes = useStyles()
-
   return (
-    <Container className={classes.main}>
-      {!loggedIn && <UserForm handleLogin={handleLogin}/>}
+    <>
+      {!loggedIn && <LoginForm handleLogin={handleLogin}/>}
       {loggedIn && <CodeList userCodes={userCodes}/>}
-    </Container>
+    </>
   )
 }
 

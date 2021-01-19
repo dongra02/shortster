@@ -26,10 +26,11 @@ const CodeCreate = () => {
   }
 
   return (
-    <div>
+    <>
       {!isAuthenticated() && <div>You must be logged in - DON INSRT LINK TO HOME HERE</div>}
       {isAuthenticated() && <CodeForm mode='new' formData={formData} handleSubmit={handleSubmit} handleChange={handleChange} />}
-    </div>
+    </>
+
   )
 }
 

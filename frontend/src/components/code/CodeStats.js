@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import { getCodeStats } from '../../lib/api'
 import { isShortCodeOwner } from '../../lib/auth'
 
-import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
@@ -29,7 +28,7 @@ const CodeStats = (props) => {
   while (!shortcode) return <div>loading</div>
 
   return (
-    <Container>
+    <>
       {isShortCodeOwner(shortcode.owner) &&
         <div>
           <Typography>Short Url: {shortcode.short_url}</Typography>
@@ -41,7 +40,7 @@ const CodeStats = (props) => {
       <Button>
         <Link to={`/${shortcode.short_url}/edit`} >Edit</Link>
       </Button>
-    </Container>
+    </>
   )
 }
 

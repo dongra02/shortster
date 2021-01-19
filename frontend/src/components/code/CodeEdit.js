@@ -40,10 +40,10 @@ const CodeEdit = (props) => {
   while (!formData) return <div>loading</div>
 
   return (
-    <div>
+    <>
       {!isAuthenticated() && <div>You must be logged in - DON INSRT LINK TO HOME HERE</div>}
       {isAuthenticated() && <CodeForm mode='edit' formData={formData} handleSubmit={handleSubmit} handleChange={handleChange} />}
-    </div>
+    </>
   )
 }
 

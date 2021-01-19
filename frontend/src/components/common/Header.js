@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(() => ({
   toolbar: {
-    minHeight: 150
+    minHeight: 200
   }
 }))
 

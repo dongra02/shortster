@@ -6,7 +6,6 @@ const baseShortcodes = `${baseUrl}/shortcodes`
 
 const withHeaders = () => {
   const header = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-  console.log(header)
   return header
 }
 

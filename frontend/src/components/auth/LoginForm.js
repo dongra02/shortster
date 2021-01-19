@@ -1,28 +1,17 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react'
 
+import Form from '../../elements/Form'
+
 import { register, login } from '../../lib/api'
 
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles(() => ({
-  main: {
-    border: '1px solid #43bce7',
-    borderRadius: '5px',
-    maxWidth: '40%',
-    margin: '0 auto',
-    padding: '1rem'
-  }
-}))
 
 const initialFormData = { username: '', password: '', password_confirmation: '' }
 
-const UserForm = ({ handleLogin }) => {
-
-  const classes = useStyles()
+const LoginForm = ({ handleLogin }) => {
   
   const [loginMode, setMode] = useState(true)
   
@@ -47,6 +36,7 @@ const UserForm = ({ handleLogin }) => {
         console.log(response)
       } catch (err) {
         console.log(err)
+        // setFormErrors(err.response.data)
       }
     }
     try {
@@ -55,29 +45,30 @@ const UserForm = ({ handleLogin }) => {
       handleLogin()
     } catch (err) {
       console.log(err)
+      // setFormErrors(err.response.data)
     }
   }
 
   return (
-    <Grid className={classes.main} container spacing={2} direction='column' justify='center' alignItems='center'>
-      <Grid item>
+    <Form>
+      <Grid item xs={8}>
         <TextField id='username' label='username' value={formData.username}  onChange={handleChange} fullWidth/>
       </Grid>
-      <Grid item>
-        <TextField id='password' label='password' type='password' value={formData.password} onChange={handleChange}/>
+      <Grid item xs={8}>
+        <TextField id='password' label='password' type='password' value={formData.password} onChange={handleChange} fullWidth/>
       </Grid>
       {!loginMode && 
-      <Grid item>
-        <TextField id='password_confirmation' type='password' label='confirm password' value={formData.password_confirmation} onChange={handleChange}/>
+      <Grid item xs={8}>
+        <TextField id='password_confirmation' type='password' label='confirm password' value={formData.password_confirmation} onChange={handleChange} fullWidth/>
       </Grid>}
-      <Grid item>
+      <Grid item xs={8}>
         <Button variant='outlined' onClick={handleSubmit}>{ loginMode ? 'Login' : 'Register' }</Button>
       </Grid>
-      <Grid item>
+      <Grid item xs={8}>
         <Button variant='outlined' onClick={changeMode}>{ loginMode ? 'I\'m a New User' : 'I Have An Account' }</Button>
       </Grid>
-    </Grid>
+    </Form>
   )
 }
 
-export default UserForm
+export default LoginForm
