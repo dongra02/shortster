@@ -17,6 +17,8 @@ import { makeStyles, withStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(() => ({
   main: {
+    border: '1px solid #43bce7',
+    borderRadius: '15px',
     minWidth: '80%',
     maxHeight: '600px',
     overflowY: 'scroll',

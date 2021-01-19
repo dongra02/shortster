@@ -31,8 +31,7 @@ const CodeListItem = ({ short_url, full_url, created }) => {
     full_url = `${full_url.slice(0, 20)}...`
   }
 
-  let createdDate = new Date(created)
-  createdDate = createdDate.toLocaleDateString()
+  const createdDate = new Date(created).toLocaleDateString()
 
   return (
     <StyledTableRow>
