@@ -26,7 +26,7 @@ const Header = () => {
   return (
     <AppBar position='static'>
       <Toolbar className={classes.toolbar}>
-        <Typography variant='h4'>Shortster</Typography>
+        <Typography variant='h1'>Shortster</Typography>
         {isAuthenticated() && <Button variant='outlined' onClick={handleLogout} href='/'>Logout</Button>}
       </Toolbar>
     </AppBar>

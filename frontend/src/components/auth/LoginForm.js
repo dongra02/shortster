@@ -16,8 +16,7 @@ const LoginForm = ({ handleLogin }) => {
   const [loginMode, setMode] = useState(true)
   
   const [formData, setFormData] = useState(initialFormData)
-  
-  const [formErrors, setFormErrors] = React.useState({})
+  const [formErrors, setFormErrors] = useState({})
 
   const changeMode = () =>{
     setMode(!loginMode)
@@ -88,11 +87,11 @@ const LoginForm = ({ handleLogin }) => {
           helperText={formErrors.password_confirmation ? formErrors.password_confirmation : ''}
           fullWidth/>
       </Grid>}
-      <Grid item xs={8}>
-        <Button variant='outlined' onClick={handleSubmit}>{ loginMode ? 'Login' : 'Register' }</Button>
+      <Grid container item xs={8} justify='center'>
+        <Button variant='contained' color='primary' onClick={handleSubmit}>{ loginMode ? 'Login' : 'Register' }</Button>
       </Grid>
-      <Grid item xs={8}>
-        <Button variant='outlined' onClick={changeMode}>{ loginMode ? 'I\'m a New User' : 'I Have An Account' }</Button>
+      <Grid container item xs={8} justify='center'>
+        <Button size='small' color='primary' onClick={changeMode}>{ loginMode ? 'I\'m a New User' : 'I Have An Account' }</Button>
       </Grid>
     </Form>
   )

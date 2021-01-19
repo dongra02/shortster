@@ -36,7 +36,6 @@ const CodeEdit = (props) => {
       const response = await updateShortcode(shortUrl, formData)
       props.history.push(`/${response.data.short_url}/stats/`)
     } catch (err) {
-      console.log(err.response)
       setFormErrors(err.response.data)
     }
   }
