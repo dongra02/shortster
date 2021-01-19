@@ -16,19 +16,20 @@ def check_url(url):
 
 bad_url_message = 'Shortcode must be at least 4 characters long & contain alpha-numeric characters only.'
     
+def create_short_url():
+    current_urls = [code.short_url for code in Shortcode.objects.all()]
+    short_url = ''
+    while (short_url == '' or short_url in current_urls):
+        chars = list(string.ascii_letters) + [str(num) for num in range(10)]
+        short_url = ''.join(random.choice(chars) for i in range(6))
+    return short_url
+
 class CodeListView(APIView):
     ''' Requests to shortcodes/ '''
 
     permission_classes=(IsAuthenticatedOrReadOnly,)
 
     # Generate Unique Shortcode if not provided in request body
-    def create_short_url(self):
-        current_urls = [code.short_url for code in Shortcode.objects.all()]
-        short_url = ''
-        while (short_url == '' or short_url in current_urls):
-            chars = list(string.ascii_letters) + [str(num) for num in range(10)]
-            short_url = ''.join(random.choice(chars) for i in range(6))
-        return short_url
 
     def get(self, request):
         codes = Shortcode.objects.filter(owner=request.user)
@@ -41,7 +42,7 @@ class CodeListView(APIView):
         if short_url and not check_url(short_url):
             return Response({ 'message': bad_url_message}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         if not short_url:
-            short_url = self.create_short_url()
+            short_url = create_short_url()
         request.data['short_url'] = short_url
         new_code = ShortcodeSerializer(data=request.data)
         if new_code.is_valid():
@@ -73,8 +74,12 @@ class CodeStatsView(APIView):
     def put(self, request, short_url):
         code_to_update = self.get_shortcode(short_url)
         self.is_owner(code_to_update, request.user)
-        if not check_url(request.data['short_url']):
+        newShortUrl = request.data['short_url']
+        if newShortUrl and not check_url(newShortUrl):
             return Response({ 'message': bad_url_message }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        if not newShortUrl:
+            newShortUrl = create_short_url()
+        request.data['short_url'] = newShortUrl
         updated_code = CodeUpdateSerializer(code_to_update, data=request.data)
         if updated_code.is_valid():
             updated_code.save()

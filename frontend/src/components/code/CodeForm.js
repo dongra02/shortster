@@ -10,11 +10,22 @@ const CodeForm = ({ mode, formData, handleSubmit, handleChange }) => {
 
   return (
     <Form>
-      <Grid item>
-        <TextField type='textArea' id='full_url' label='Full URL' value={formData.full_url}  onChange={handleChange} fullWidth/>
+      <Grid item xs={8}>
+        <TextField
+          multiline id='full_url'
+          label='Full URL'
+          value={formData.full_url} 
+          onChange={handleChange}
+          fullWidth />
       </Grid>
-      <Grid item>
-        <TextField id='short_url' label='Short URL - optional' value={formData.short_url}  onChange={handleChange} fullWidth/>
+      <Grid item xs={8}>
+        <TextField
+          id='short_url'
+          label='Short URL - optional'
+          value={formData.short_url}
+          onChange={handleChange}
+          fullWidth
+          helperText= 'Must be 4 Characters Long. Alphanumeric Characters Only.' />
       </Grid>
       <Grid item>
         <Button variant='outlined' onClick={handleSubmit}>{ mode === 'new' ? 'Save New Shortcode' : 'Update Shortcode' }</Button>

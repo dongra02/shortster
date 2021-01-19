@@ -31,7 +31,7 @@ const CodeEdit = (props) => {
   const handleSubmit = async () => {
     try {
       const response = await updateShortcode(shortUrl, formData)
-      console.log(response.data)
+      props.history.push(`/${response.data.short_url}/stats/`)
     } catch (err) {
       console.log(err.response)
     }
