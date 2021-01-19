@@ -5,9 +5,10 @@ import CodeForm from './CodeForm'
 import { createShortcode } from '../../lib/api'
 import { isAuthenticated } from '../../lib/auth'
 
+const initialFormData = { short_url: '', full_url: '' }
+
 const CodeCreate = () => {
 
-  const initialFormData = { short_url: '', full_url: '' }
   const [formData, setFormData] = useState(initialFormData)
 
   const handleChange = (e) => {

@@ -9,9 +9,10 @@ import { isAuthenticated } from '../../lib/auth'
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles( theme => ({
   main: {
-    marginTop: '2rem'
+    marginTop: theme.spacing(7),
+    padding: theme.spacing(2)
   }
 }))
 
@@ -38,12 +39,10 @@ const Home = () => {
   const classes = useStyles()
 
   return (
-    <div>
-      <Container className={classes.main}>
-        {!loggedIn && <UserForm handleLogin={handleLogin}/>}
-        {loggedIn && <CodeList userCodes={userCodes}/>}
-      </Container>
-    </div>
+    <Container className={classes.main}>
+      {!loggedIn && <UserForm handleLogin={handleLogin}/>}
+      {loggedIn && <CodeList userCodes={userCodes}/>}
+    </Container>
   )
 }
 
