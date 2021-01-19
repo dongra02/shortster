@@ -36,9 +36,9 @@ const LoginForm = ({ handleLogin }) => {
       try {
         let response = await register(formData)
         response = await login(formData)
-        console.log(response)
+        localStorage.setItem('token', response.data.token)
+        handleLogin()
       } catch (err) {
-        console.log(err.response.data)
         setFormErrors(err.response.data)
       }
     }

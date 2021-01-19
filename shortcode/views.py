@@ -40,7 +40,7 @@ class CodeListView(APIView):
         request.data['owner'] = request.user.id
         short_url = request.data['short_url']
         if short_url and not check_url(short_url):
-            return Response({ 'message': bad_url_message}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+            return Response({ 'short_url': bad_url_message}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         if not short_url:
             short_url = create_short_url()
         request.data['short_url'] = short_url
@@ -76,7 +76,7 @@ class CodeStatsView(APIView):
         self.is_owner(code_to_update, request.user)
         newShortUrl = request.data['short_url']
         if newShortUrl and not check_url(newShortUrl):
-            return Response({ 'message': bad_url_message }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+            return Response({ 'short_url': bad_url_message }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         if not newShortUrl:
             newShortUrl = create_short_url()
         request.data['short_url'] = newShortUrl
