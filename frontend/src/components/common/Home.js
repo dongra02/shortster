@@ -32,8 +32,8 @@ const Home = () => {
         console.log(err.response.data)
       }
     }
-    getCodes()
-  }, [])
+    if (loggedIn) getCodes()
+  }, [loggedIn])
 
   const classes = useStyles()
 

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { isAuthenticated } from '../../lib/auth'
+
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -13,7 +15,11 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-const Header = ({ isAuthenticated, handleLogout }) => {
+const Header = () => {
+
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+  }
 
   const classes = useStyles()
 
@@ -21,7 +27,7 @@ const Header = ({ isAuthenticated, handleLogout }) => {
     <AppBar position='static'>
       <Toolbar className={classes.toolbar}>
         <Typography variant='h4'>Shortster</Typography>
-        {isAuthenticated && <Button variant='outlined' onClick={handleLogout}>Logout</Button>}
+        {isAuthenticated() && <Button variant='outlined' onClick={handleLogout} href='/'>Logout</Button>}
       </Toolbar>
     </AppBar>
   )
