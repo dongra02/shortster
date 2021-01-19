@@ -127,5 +127,7 @@ The first steps involved laying out the basic routes and component setup. Sticki
 * a Stats compenent to view information for each shortcode
 * A Code Forms component to handle create/update of shortcodes
 
-If a user is logged in, the landing page should display their codes with ability to view stats or access the code. If not logged in, users should only have option to log in or register for the application.
+Much of the frontend work involved refactoring my initial code into functional components and using React's useState and useEffect features. In addition, conditionally rendering components and elements like the Logout option and CodeList componenet based on a user's authentication made this a little less straightforward at first. Additionally, I wanted a user to be logged in as soon as a registration is sucessful. Ultimately, I'd like to further clean up the forms and fetch code to better utilize custom hooks.
+
+
 
