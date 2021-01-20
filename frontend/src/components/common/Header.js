@@ -1,29 +1,11 @@
 import React, { useState } from 'react'
 
 import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
+import { StyledToolBar, StyledHeaderType, StyledIconBtn } from '../../elements/HeaderBar'
 import Button from '@material-ui/core/Button'
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import { makeStyles } from '@material-ui/core/styles'
-
-
-const useStyles = makeStyles((theme) => ({
-  toolbar: {
-    minHeight: 80,
-    color: '#fff'
-  },
-  title: {
-    flexGrow: 1
-  },
-  menuAnchor: {
-    marginRight: theme.spacing(2),
-    color: '#fff'
-  }
-}))
 
 const Header = ({ app, loggedIn }) => {
 
@@ -37,17 +19,15 @@ const Header = ({ app, loggedIn }) => {
     setAnchorEl(null)
   }
 
-  const classes = useStyles()
-
   return (
     <AppBar position='static'>
-      <Toolbar className={classes.toolbar}>
-        <Typography className={classes.title} variant='h2' >Shortster</Typography>
+      <StyledToolBar>
+        <StyledHeaderType variant='h2' >Shortster</StyledHeaderType>
         {loggedIn && (
           <>
-            <IconButton className={classes.menuAnchor} onClick={handleOpenMenu}>
+            <StyledIconBtn onClick={handleOpenMenu}>
               <AccountCircleOutlinedIcon />
-            </IconButton>
+            </StyledIconBtn>
             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu}>
               <MenuItem>
                 <Button href='/'>My Codes</Button>
@@ -58,7 +38,7 @@ const Header = ({ app, loggedIn }) => {
             </Menu>
           </>
         )}
-      </Toolbar>
+      </StyledToolBar>
     </AppBar>
   )
 }

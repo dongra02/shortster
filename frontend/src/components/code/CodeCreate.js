@@ -5,6 +5,8 @@ import CodeForm from './CodeForm'
 
 import { createShortcode } from '../../lib/api'
 
+import Typography from '@material-ui/core/Typography'
+
 const initialFormData = { short_url: '', full_url: '' }
 
 const CodeCreate = ({ loggedIn }) => {
@@ -32,7 +34,7 @@ const CodeCreate = ({ loggedIn }) => {
 
   return (
     <>
-      {!loggedIn && <div>You must be logged in - DON INSRT LINK TO HOME HERE</div>}
+      {!loggedIn && <Typography>You must be logged in...</Typography>}
       {loggedIn && <CodeForm mode='new' formData={formData} formErrors={formErrors} handleSubmit={handleSubmit} handleChange={handleChange} />}
     </>
 
