@@ -81,7 +81,7 @@ class Shortcode(models.Model):
         self.last_access = datetime.datetime.now()
 ```
 
-With the model created I set about to create the views. I still have reservations about some of the naming conventions I selected, in retrospect I likely would have named the model something else so as to preserve shortcode. The views include list, stats and access views for a shortcode. A user, and only a user, has access to the list of their 'owned' shortcodes as well as the stats for a specific code. I added a third view for "access" to a code. This endpoint is accessable to any user. Upon each request, the code's last_access and access_count fields are updated. The full_url is returned so the frontend can redirect the user to the proper site using a specified serializer.
+With the model created I set about to create the views. I still have reservations about some of the naming conventions I selected. In retrospect I likely would have named the model something else so as to preserve shortcode. The views include list, stats and access views for a shortcode. A user, and only a user, has access to the list of their 'owned' shortcodes as well as the stats for a specific code. I added a third view for "access" to a code. This endpoint is accessable to any user. Upon each request, the code's last_access and access_count fields are updated. The full_url is returned so the frontend can redirect the user to the proper site using a specified serializer.
 
 ```python
 class CodeAccessView(CodeStatsView):
@@ -96,10 +96,13 @@ class CodeAccessView(CodeStatsView):
         return Response(serialized_code.data, status=status.HTTP_200_OK)
 ```
 
+The resulting endpoints and response bodies are displayed below:
+
 ## Front End
 * Javascript
 * React / react-router-dom
 * Http-proxy-middleware
+* Material UI Core & Icons
 
 ### Initial Wireframes
 
@@ -127,7 +130,7 @@ The first steps involved laying out the basic routes and component setup. Sticki
 * a Stats compenent to view information for each shortcode
 * A Code Forms component to handle create/update of shortcodes
 
-Much of the frontend work involved refactoring my initial code into functional components and using React's useState and useEffect features. In addition, conditionally rendering components and elements like the Logout option and CodeList componenet based on a user's authentication made this a little less straightforward at first. Additionally, I wanted a user to be logged in as soon as a registration is sucessful. Ultimately, I'd like to further clean up the forms and fetch code to better utilize custom hooks.
+Much of the frontend work involved refactoring my initial code into functional components and using React's useState and useEffect features. In addition, conditionally rendering components and elements like the Logout option and CodeList component based on a user's authentication made this a little less straightforward at first. Additionally, I wanted a user to be logged in as soon as a registration is sucessful. Ultimately, I'd like to further clean up the forms and fetch code to better utilize custom hooks.
 
 
 

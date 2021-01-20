@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react'
+// import { useHistory } from 'react-router-dom'
 
 import LoginForm from '../auth/LoginForm'
 import CodeList from '../code/CodeList'
 
 import { getUserCodes } from '../../lib/api'
-import { isAuthenticated } from '../../lib/auth'
-const Home = () => {
 
-  const [loggedIn, setLoggedIn] = useState(isAuthenticated())
-
-  const handleLogin = () => setLoggedIn(true)
+const Home = ({ app, loggedIn }) => {
 
   const [userCodes, setUserCodes] = useState(null)
+  const [isAuth, setIsAuth] = useState(loggedIn)
+
+  const handleAuth = () => {
+    setIsAuth(true)
+  }
 
   useEffect(() => {
     const getCodes = async () => {
@@ -22,13 +24,13 @@ const Home = () => {
         console.log(err.response.data)
       }
     }
-    if (loggedIn) getCodes()
-  }, [loggedIn])
+    if (isAuth) getCodes()
+  }, [isAuth])
 
   return (
     <>
-      {!loggedIn && <LoginForm handleLogin={handleLogin}/>}
-      {loggedIn && <CodeList userCodes={userCodes}/>}
+      {!isAuth && <LoginForm app={app} handleAuth={handleAuth}/>}
+      {isAuth && <CodeList userCodes={userCodes}/>}
     </>
   )
 }

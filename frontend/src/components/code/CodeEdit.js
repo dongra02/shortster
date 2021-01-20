@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 import CodeForm from './CodeForm'
 
@@ -10,7 +11,7 @@ const CodeEdit = (props) => {
 
   const [formData, setFormData] = useState(null)
   const [formErrors, setFormErrors] = useState({})
-  const shortUrl = props.match.params.shortUrl
+  const { shortUrl } = useParams()
 
   useEffect(() => {
     const getCode = async () => {

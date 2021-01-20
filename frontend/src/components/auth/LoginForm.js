@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid'
 
 const initialFormData = { username: '', password: '', password_confirmation: '' }
 
-const LoginForm = ({ handleLogin }) => {
+const LoginForm = ({ app, handleAuth }) => {
   
   const [loginMode, setMode] = useState(true)
   
@@ -36,7 +36,8 @@ const LoginForm = ({ handleLogin }) => {
         let response = await register(formData)
         response = await login(formData)
         localStorage.setItem('token', response.data.token)
-        handleLogin()
+        app.handleLogIn()
+        handleAuth()
       } catch (err) {
         setFormErrors(err.response.data)
       }
@@ -45,10 +46,10 @@ const LoginForm = ({ handleLogin }) => {
       try {
         const response = await login(formData)
         localStorage.setItem('token', response.data.token)
-        handleLogin()
+        app.handleLogIn()
+        handleAuth()
       } catch (err) {
-        console.log(err.response)
-        setFormErrors(err.response.data)
+        console.log(err)
       }
     }
   }
@@ -80,7 +81,8 @@ const LoginForm = ({ handleLogin }) => {
       <Grid item xs={8}>
         <TextField
           id='password_confirmation'
-          type='password' label='confirm password'
+          label='confirm password'
+          type='password'
           value={formData.password_confirmation}
           onChange={handleChange}
           error={formErrors.password_confirmation ? true : false}

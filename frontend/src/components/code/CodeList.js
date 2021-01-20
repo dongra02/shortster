@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
     border: '1px solid #43bce7',
     borderRadius: '15px',
     minWidth: '80%',
-    maxHeight: '600px',
+    maxHeight: 400,
     overflowY: 'scroll',
     margin: '0 auto'
   }
@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
 const StyledTableCell = withStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.primary.main,
-    fontSize: '1.5rem'
+    fontSize: '1.25rem'
   }
 }))(TableCell)
 
