@@ -5,6 +5,7 @@ import { isAuthenticated } from './lib/auth'
 
 import Header from './components/common/Header'
 import Home from './components/common/Home'
+import Footer from './components/common/Footer'
 import CodeStats from './components/code/CodeStats'
 import CodeCreate from './components/code/CodeCreate'
 import CodeEdit from './components/code/CodeEdit'
@@ -48,6 +49,7 @@ const App = () => {
             <Route path="/:shortUrl" component={CodeAccess} />
           </Switch>
         </Wrapper>
+        <Footer />
       </BrowserRouter>
     </ThemeProvider>
   )
