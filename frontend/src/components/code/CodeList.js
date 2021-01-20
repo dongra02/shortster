@@ -32,7 +32,7 @@ const StyledTableCell = withStyles((theme) => ({
   }
 }))(TableCell)
 
-const CodeList = ({ userCodes }) => {
+const CodeList = ({ userCodes, handleCodeListUpdate }) => {
 
   const classes = useStyles()
 
@@ -57,7 +57,7 @@ const CodeList = ({ userCodes }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {userCodes.map(code => <CodeListItem key={code.id} {...code} />)}
+            {userCodes.map(code => <CodeListItem key={code.id} {...code} handleCodeListUpdate={handleCodeListUpdate}/>)}
           </TableBody>
         </Table>
       </TableContainer>

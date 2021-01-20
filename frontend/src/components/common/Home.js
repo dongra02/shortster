@@ -9,9 +9,14 @@ const Home = ({ app, loggedIn }) => {
 
   const [userCodes, setUserCodes] = useState(null)
   const [isAuth, setIsAuth] = useState(loggedIn)
+  const [codeListUpdate, setCodeListUpdate] = useState(false)
 
   const handleAuth = () => {
     setIsAuth(true)
+  }
+
+  const handleCodeListUpdate = () => {
+    setCodeListUpdate(!codeListUpdate)
   }
 
   useEffect(() => {
@@ -24,12 +29,12 @@ const Home = ({ app, loggedIn }) => {
       }
     }
     if (isAuth) getCodes()
-  }, [isAuth])
+  }, [isAuth, codeListUpdate])
 
   return (
     <>
       {!isAuth && <LoginForm app={app} handleAuth={handleAuth}/>}
-      {isAuth && <CodeList userCodes={userCodes}/>}
+      {isAuth && <CodeList userCodes={userCodes} handleCodeListUpdate={handleCodeListUpdate}/>}
     </>
   )
 }
