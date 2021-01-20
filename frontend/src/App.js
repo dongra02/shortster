@@ -19,11 +19,9 @@ import theme from './styles/theme'
 const App = () => {
 
   const [loggedIn, setLoggedIn] = useState(isAuthenticated())
-  // const history = useHistory()
 
   const handleLogIn = () => {
     setLoggedIn(true)
-    // history.push('/')
   }
 
   const handleLogOut = () => {
@@ -44,9 +42,9 @@ const App = () => {
         <Wrapper>
           <Switch>
             <Route exact path="/" render={() => <Home app={app} loggedIn={loggedIn}/>}/>
-            <Route exact path="/new" component={CodeCreate} />
+            <Route exact path="/new" render={() => <CodeCreate loggedIn={loggedIn}/>}/>
             <Route path="/:shortUrl/stats" component={CodeStats} />
-            <Route path="/:shortUrl/edit" component={CodeEdit} />
+            <Route path="/:shortUrl/edit" render={() => <CodeEdit loggedIn={loggedIn}/>}/>
             <Route path="/:shortUrl" component={CodeAccess} />
           </Switch>
         </Wrapper>

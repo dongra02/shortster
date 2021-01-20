@@ -19,7 +19,6 @@ const useStyles = makeStyles(() => ({
   main: {
     border: '1px solid #43bce7',
     borderRadius: '15px',
-    minWidth: '80%',
     maxHeight: 400,
     overflowY: 'scroll',
     margin: '0 auto'
@@ -29,7 +28,7 @@ const useStyles = makeStyles(() => ({
 const StyledTableCell = withStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.primary.main,
-    fontSize: '1.25rem'
+    fontSize: '1.3rem'
   }
 }))(TableCell)
 
@@ -48,7 +47,7 @@ const CodeList = ({ userCodes }) => {
         </IconButton>
       </Grid>
       <TableContainer className={classes.main}>
-        <Table stickyHeader>
+        <Table stickyHeader size='small'>
           <TableHead>
             <TableRow>
               <StyledTableCell>Shortcode</StyledTableCell>

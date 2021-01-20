@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 
 import CodeForm from './CodeForm'
 
 import { getCodeStats, updateShortcode } from '../../lib/api'
-import { isAuthenticated } from '../../lib/auth'
 
 
-const CodeEdit = (props) => {
+const CodeEdit = ({ loggedIn }) => {
 
   const [formData, setFormData] = useState(null)
   const [formErrors, setFormErrors] = useState({})
   const { shortUrl } = useParams()
+  const history = useHistory()
 
   useEffect(() => {
     const getCode = async () => {
@@ -35,7 +35,7 @@ const CodeEdit = (props) => {
   const handleSubmit = async () => {
     try {
       const response = await updateShortcode(shortUrl, formData)
-      props.history.push(`/${response.data.short_url}/stats/`)
+      history.push(`/${response.data.short_url}/stats/`)
     } catch (err) {
       setFormErrors(err.response.data)
     }
@@ -45,8 +45,8 @@ const CodeEdit = (props) => {
 
   return (
     <>
-      {!isAuthenticated() && <div>You must be logged in - DON INSRT LINK TO HOME HERE</div>}
-      {isAuthenticated() && <CodeForm mode='edit' formData={formData} formErrors={formErrors} handleSubmit={handleSubmit} handleChange={handleChange} />}
+      {!loggedIn && <div>You must be logged in - DON INSRT LINK TO HOME HERE</div>}
+      {loggedIn && <CodeForm mode='edit' formData={formData} formErrors={formErrors} handleSubmit={handleSubmit} handleChange={handleChange} />}
     </>
   )
 }

@@ -40,13 +40,13 @@ const CodeListItem = ({ short_url, full_url, created }) => {
       <StyledTableCell>{createdDate}</StyledTableCell>
       <TableCell align='center'>
         <IconButton component={Link} to={`/${short_url}/stats`}>
-          <InfoOutlinedIcon fontSize='large'/>
+          <InfoOutlinedIcon/>
         </IconButton>
         <IconButton component={Link} to={`/${short_url}/edit`}>
-          <EditOutlinedIcon color='primary' fontSize='large'/>
+          <EditOutlinedIcon color='primary'/>
         </IconButton>
         <IconButton>
-          <DeleteOutlinedIcon color='secondary' fontSize='large'/>
+          <DeleteOutlinedIcon color='secondary' />
         </IconButton>
       </TableCell>
     </StyledTableRow>

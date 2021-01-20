@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import { accessShortCode } from '../../lib/api'
 
@@ -23,7 +23,7 @@ const CodeAccess = () => {
   }, [])
 
   return (
-    <Typography>This should redirect</Typography>
+    <Typography>Redirecting! Shortcode owners click <Link to='/'>here.</Link> if something went wrong! </Typography>
   )
 }
 

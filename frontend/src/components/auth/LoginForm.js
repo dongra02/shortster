@@ -49,7 +49,7 @@ const LoginForm = ({ app, handleAuth }) => {
         app.handleLogIn()
         handleAuth()
       } catch (err) {
-        console.log(err)
+        setFormErrors(err.response.data)
       }
     }
   }

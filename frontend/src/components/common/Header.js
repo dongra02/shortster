@@ -1,7 +1,4 @@
 import React, { useState } from 'react'
-// import { useHistory } from 'react-router-dom'
-
-import { isAuthenticated } from '../../lib/auth'
 
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -14,43 +11,46 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { makeStyles } from '@material-ui/core/styles'
 
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   toolbar: {
     minHeight: 80,
     color: '#fff'
+  },
+  title: {
+    flexGrow: 1
+  },
+  menuAnchor: {
+    marginRight: theme.spacing(2)
   }
 }))
 
-const Header = ({ app }) => {
+const Header = ({ app, loggedIn }) => {
 
   const [anchorEl, setAnchorEl] = useState(null)
-  // const history = useHistory()
-
-  // const handleLogout = () => {
-  //   localStorage.removeItem('token')
-  //   history.push('/')
-  // }
 
   const handleOpenMenu = (e) => {
     setAnchorEl(e.currentTarget)
   }
 
-  // const handleCloseMenu = () => {
-  //   setAnchorEl(null)
-  // }
+  const handleCloseMenu = () => {
+    setAnchorEl(null)
+  }
 
   const classes = useStyles()
 
   return (
     <AppBar position='static'>
       <Toolbar className={classes.toolbar}>
-        <Typography variant='h2'>Shortster</Typography>
-        {isAuthenticated() && (
+        <Typography className={classes.title} variant='h2' >Shortster</Typography>
+        {loggedIn && (
           <>
-            <IconButton onClick={handleOpenMenu}>
+            <IconButton className={classes.menuAnchor} onClick={handleOpenMenu}>
               <AccountCircleOutlinedIcon />
             </IconButton>
-            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)}>
+            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu}>
+              <MenuItem>
+                <Button href='/'>My Codes</Button>
+              </MenuItem>
               <MenuItem>
                 <Button onClick={app.handleLogOut} href='/'>Logout</Button>
               </MenuItem>
