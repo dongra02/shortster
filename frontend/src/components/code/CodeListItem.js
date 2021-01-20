@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import { deleteShortcode } from '../../lib/api'
 
@@ -14,6 +14,7 @@ import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined'
 
 const CodeListItem = ({ short_url, full_url, created, handleCodeListUpdate }) => {
   const [confirmDel, setConfirmDel] = useState(false)
+  const history = useHistory()
 
   const handleConfirmDel = () => {
     setConfirmDel(!confirmDel)
@@ -21,11 +22,10 @@ const CodeListItem = ({ short_url, full_url, created, handleCodeListUpdate }) =>
 
   const handleDelete = async () => {
     try {
-      const response = await deleteShortcode(short_url)
+      await deleteShortcode(short_url)
       handleCodeListUpdate()
-      console.log(response)
     } catch (err) {
-      console.log(err)
+      history.push('/')
     }
   }
 

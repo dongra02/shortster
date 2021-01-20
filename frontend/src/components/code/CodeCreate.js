@@ -26,7 +26,6 @@ const CodeCreate = ({ loggedIn }) => {
       const response = await createShortcode(formData)
       history.push(`/${response.data.short_url}/stats/`)
     } catch (err) {
-      console.log(err.response)
       setFormErrors(err.response.data)
     }
   }

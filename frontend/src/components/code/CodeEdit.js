@@ -20,7 +20,7 @@ const CodeEdit = ({ loggedIn }) => {
         const response  = await getCodeStats(shortUrl)
         setFormData({ short_url: response.data.short_url, full_url: response.data.full_url })
       } catch (err) {
-        console.log(err.response.data)
+        history.push('/')
       }
     }
     getCode()

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useHistory } from 'react-router-dom'
 
 import { getCodeStats } from '../../lib/api'
 import { isShortCodeOwner } from '../../lib/auth'
@@ -14,6 +14,7 @@ const CodeStats = () => {
 
   const [shortcode, setShortCode] = useState(null)
   const { shortUrl } = useParams()
+  const history = useHistory()
 
   useEffect(() => {
     const getShortcode = async() => {
@@ -21,13 +22,13 @@ const CodeStats = () => {
         const response = await getCodeStats(shortUrl)
         setShortCode(response.data)
       } catch (err) {
-        console.log(err.response.data)
+        history.push('/')
       }
     }
     getShortcode()
   }, [])
 
-  while (!shortcode) return <div>loading</div>
+  while (!shortcode) return <Typography>Loading...</Typography>
   
   let accessDate
   if (shortcode.last_access) {
