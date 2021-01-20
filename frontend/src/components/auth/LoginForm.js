@@ -5,6 +5,7 @@ import Form from '../../elements/Form'
 
 import { register, login } from '../../lib/api'
 
+import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
@@ -25,7 +26,7 @@ const LoginForm = ({ app, handleAuth }) => {
 
   const handleChange = (e) => {
     const newFormData = { ...formData, [e.target.id]: e.target.value }
-    const newFormErrors = { ...formErrors, [e.target.id]: '' }
+    const newFormErrors = { ...formErrors, [e.target.id]: '', detail: '' }
     setFormData(newFormData)
     setFormErrors(newFormErrors)
   }
@@ -56,6 +57,11 @@ const LoginForm = ({ app, handleAuth }) => {
 
   return (
     <Form>
+      {formErrors.detail && <Grid item xs={8}>
+        <Typography color='secondary' align='center'>
+          {formErrors.detail}
+        </Typography>
+      </Grid>}
       <Grid item xs={8}>
         <TextField
           id='username'

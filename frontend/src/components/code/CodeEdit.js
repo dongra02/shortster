@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { Link, useParams, useHistory } from 'react-router-dom'
 
 import CodeForm from './CodeForm'
 
 import { getCodeStats, updateShortcode } from '../../lib/api'
 
+import Typography from '@material-ui/core/Typography'
 
 const CodeEdit = ({ loggedIn }) => {
 
@@ -41,11 +42,11 @@ const CodeEdit = ({ loggedIn }) => {
     }
   }
 
-  while (!formData) return <div>loading</div>
+  while (!formData) return <Typography>Loading...</Typography>
 
   return (
     <>
-      {!loggedIn && <div>You must be logged in - DON INSRT LINK TO HOME HERE</div>}
+      {!loggedIn && <Typography>You must be <Link to='/'>logged in</Link></Typography>}
       {loggedIn && <CodeForm mode='edit' formData={formData} formErrors={formErrors} handleSubmit={handleSubmit} handleChange={handleChange} />}
     </>
   )

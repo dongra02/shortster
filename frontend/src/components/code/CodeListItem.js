@@ -4,29 +4,13 @@ import { Link } from 'react-router-dom'
 
 import { deleteShortcode } from '../../lib/api'
 
-import TableRow from '@material-ui/core/TableRow'
+import { StyledTableRow, StyledTableBodCell } from '../../elements/Table'
 import TableCell from '@material-ui/core/TableCell'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined'
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined'
-import { withStyles } from '@material-ui/core/styles'
-
-const StyledTableRow = withStyles(() => ({
-  root: {
-    height: 40,
-    '&:nth-of-type(odd)': {
-      backgroundColor: '#f3f3f3'
-    }
-  }
-}))(TableRow)
-
-const StyledTableCell = withStyles(() => ({
-  root: {
-    fontSize: '1.2rem'
-  }
-}))(TableCell)
 
 const CodeListItem = ({ short_url, full_url, created, handleCodeListUpdate }) => {
   const [confirmDel, setConfirmDel] = useState(false)
@@ -53,9 +37,9 @@ const CodeListItem = ({ short_url, full_url, created, handleCodeListUpdate }) =>
 
   return (
     <StyledTableRow>
-      <StyledTableCell>{short_url}</StyledTableCell>
-      <StyledTableCell>{full_url}</StyledTableCell>
-      <StyledTableCell>{createdDate}</StyledTableCell>
+      <StyledTableBodCell>{short_url}</StyledTableBodCell>
+      <StyledTableBodCell>{full_url}</StyledTableBodCell>
+      <StyledTableBodCell>{createdDate}</StyledTableBodCell>
       {!confirmDel && <TableCell align='center'>
         <IconButton component={Link} to={`/${short_url}/stats`}>
           <InfoOutlinedIcon/>

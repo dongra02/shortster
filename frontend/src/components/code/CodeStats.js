@@ -5,31 +5,15 @@ import { Link, useParams } from 'react-router-dom'
 import { getCodeStats } from '../../lib/api'
 import { isShortCodeOwner } from '../../lib/auth'
 
-import Card from '@material-ui/core/Card'
+import { StyledCard, StyledCardButton } from '../../elements/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles(() => ({
-  main: {
-    border: '1px solid #43bce7',
-    borderRadius: '15px',
-    maxWidth: 400,
-    margin: '0 auto'
-  },
-  button: {
-    margin: '0 auto'
-  }
-}))
 
 const CodeStats = () => {
 
   const [shortcode, setShortCode] = useState(null)
   const { shortUrl } = useParams()
-  
-  const classes = useStyles()
 
   useEffect(() => {
     const getShortcode = async() => {
@@ -53,7 +37,7 @@ const CodeStats = () => {
   
 
   return (
-    <Card className={classes.main}>
+    <StyledCard>
       {isShortCodeOwner(shortcode.owner) &&
         <CardContent>
           <Typography variant='h3' align='center' color='primary'>{shortcode.short_url}</Typography>
@@ -67,9 +51,9 @@ const CodeStats = () => {
           <Typography variant='body2' align='center'>{createdDate}</Typography>
         </CardContent>}
       <CardActions>
-        <Button color='primary' className={classes.button} component={Link} to={'/'}>Back To My Shortcodes</Button>
+        <StyledCardButton color='primary' component={Link} to={'/'}>Back To My Shortcodes</StyledCardButton>
       </CardActions>
-    </Card>
+    </StyledCard>
   )
 }
 
