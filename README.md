@@ -135,7 +135,7 @@ The majority of time spent on the front end was working through how best to mana
 The resulting application should meet the specifications outlined in the project brief:
 
 * a User Forms component to handle login and registration - Open to all users
-* A Code Access component to handle accessing the shortcode link, and updating the Access Count and Last Access - Open to all users
+* A Code Access component to handle accessing the shortcode link, and updating the access_count and last_access values - Open to all users
 * a Home component for the list of shortcodes
 * a Stats component to view information for each shortcode
 * A Code Forms component to handle create/update of shortcodes
