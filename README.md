@@ -13,7 +13,7 @@ A coding challenge requiring an application that provides users with "short URLs
 *	A user can access a '/:shortcode/stats' endpoint in order to see when the shortcode was registered, when it was last accessed, and how many times it was accessed.
 
 ### Assumptions
-* As I have not had experience creating shortcodes, I opted to generate strings that met the requirements listed so as to focus on creating a functional application. The resulting string can be appended to the development path and a user will be redirected given a valid URL. For example, the below would result in a redirect to "www.espn.com."
+* As I have not had experience creating shortcodes, I opted to generate strings that met the requirements listed so as to focus on creating a functional application. The resulting string can be appended to the development path and a user will be redirected given a valid URL. For example, the below path (localhost:3000/ESPN) would result in a redirect to www.espn.com from my dev server.
 
 <br/>
 <br/>
@@ -134,10 +134,10 @@ The majority of time spent on the front end was working through how best to mana
 
 The resulting application should meet the specifications outlined in the project brief:
 
-* a User Forms component to handle login and registration - Open to all users
+* A User Forms component to handle login and registration - Open to all users
 * A Code Access component to handle accessing the shortcode link, and updating the access_count and last_access values - Open to all users
-* a Home component for the list of shortcodes
-* a Stats component to view information for each shortcode
+* A Home component for the list of shortcodes
+* A Stats component to view information for each shortcode
 * A Code Forms component to handle create/update of shortcodes
 
 User Form for registration and log in with field validation from backend and form error handling:
