@@ -11,6 +11,8 @@ from .serializers.update import CodeUpdateSerializer
 import string
 import random
 
+# Utility functions to verify custom short_urls or create for user in POST request to /shortcodes/
+
 def check_url(url):
     return len(url) >= 4 and url.isalnum()
 
@@ -24,12 +26,12 @@ def create_short_url():
         short_url = ''.join(random.choice(chars) for i in range(6))
     return short_url
 
+# CodeListView manages GET and POST requests to collection at /shortcodes/
+
 class CodeListView(APIView):
     ''' Requests to shortcodes/ '''
 
     permission_classes=(IsAuthenticatedOrReadOnly,)
-
-    # Generate Unique Shortcode if not provided in request body
 
     def get(self, request):
         codes = Shortcode.objects.filter(owner=request.user)
@@ -49,6 +51,8 @@ class CodeListView(APIView):
             new_code.save()
             return Response(new_code.data, status=status.HTTP_201_CREATED)
         return Response(new_code.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+# CodeStatsView manages READ, UPDATE & DELETE requests to specific shortcodes 
 
 class CodeStatsView(APIView):
     ''' Requests to <short_url>/stats/ '''
@@ -91,6 +95,8 @@ class CodeStatsView(APIView):
         self.is_owner(code_to_delete, request.user)
         code_to_delete.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+# CodeAccessView manages access requests by updating stats and providing full_url to front end for redirect
 
 class CodeAccessView(CodeStatsView):
     ''' Requests to <short_url>/, redirect and inform stats '''
