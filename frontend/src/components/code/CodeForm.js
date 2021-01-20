@@ -14,7 +14,7 @@ const CodeForm = ({ mode, formData, formErrors, handleSubmit, handleChange }) =>
     <Form>
       <Grid item xs={12}>
         <Typography align='center'>
-          Short URLS must contain at least 4 alphanumeric characters only.
+          Short URLs must contain at least 4 alphanumeric characters only.
         </Typography>
         <Typography align='center'>
           Leave the field blank to let us do the work for you!
