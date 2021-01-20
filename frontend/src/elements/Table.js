@@ -1,7 +1,14 @@
 import TableContainer from '@material-ui/core/TableContainer'
+import Typography from '@material-ui/core/Typography'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import { withStyles } from '@material-ui/core/styles'
+
+export const StyledTitleType = withStyles((theme) => ({
+  root: {
+    color: theme.palette.text.primary
+  }
+}))(Typography)
 
 export const StyledTableContainer = withStyles(() => ({
   root: {
