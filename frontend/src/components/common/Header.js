@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1
   },
   menuAnchor: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
+    color: '#fff'
   }
 }))
 

@@ -1,39 +1,47 @@
 # Shortster
 
-## Brief and User Stories
+### Brief and User Stories
 
-At MovingWorlds we're looking forward to launching an URL shortening service, so that users may have custom URLs to their long URLs.
+A coding challenge requiring an application that provides users with "short urls" meeting the following specifications and endpoints:
 
-Specs:
 *	A user can submit a URL and receive a unique shortcode in response.
 *	A user can submit a URL and shortcode and will receive the chosen shortcode if it is available.
-*	A user can access a /<shortcode> endpoint and be redirected to the URL associated with that shortcode, if it exists.
+*	A user can access a '/:shortcode' endpoint and be redirected to the URL associated with that shortcode, if it exists.
 *	All shortcodes can contain digits, upper case letters, and lowercase letters. It is case sensitive.
 *	Automatically allocated shortcodes are exactly 6 characters long.
 *	User submitted shortcodes must be at least 4 characters long.
-*	A user can access a /<shortcode>/stats endpoint in order to see when the shortcode was registered, when it was last accessed, and how many times it was accessed.
+*	A user can access a '/:shortcode/stats' endpoint in order to see when the shortcode was registered, when it was last accessed, and how many times it was accessed.
 
-Assumptions:
-* As I have not had experience creating shortcodes, I opted to generate strings that met the requirements listed so as to focus on creating a functional application.
-* Clicks/Access of shortcodes, for the purpose of informing the stats endpoint, will be considered as requests to that specific shortcode object.
+### Assumptions
+* As I have not had experience creating shortcodes, I opted to generate strings that met the requirements listed so as to focus on creating a functional application. The resulting string can be appended to the development path and successfuly redirected given a valid URL. For example, the below would result in a redirect to "www.espn.com."
+
+<br/>
+<br/>
+
+<div align='center'>
+<img src='./images/redirect.png'>
+</div>
+
+<br/>
+<br/>
 
 ## Back End
+
+#### Technologies
 * Python
 * Django / Django Rest Framework
 * Pyjwt
 * PostgreSQL / Psycopg
 * Insomnia
 
-### Initial Database
+#### Initial Database
 <div align='center'>
 <img src='./images/initial-db.png'>
 </div>
 
-### Process
+#### Process
 
-I began by laying out a very basic backend and database model. I boot-strapped this with 'django-admin startproject.' With the basic file structure I adjusted the database settings to use PostgreSQL. Additionaly, I created an Insomnia workspace to begin testing the endpoints and validations.
-
-The first model I created was the User model. For this, I utlized the Pyjwt library to handle webtoken encoding/decoding as well as Django Rest Frameworks built in authentication. With the code below, I am able to validate the token and format, as well as store the user info in the request to be accessed down the line. 
+With the above outline in mind, I boot-strapped this app with 'django-admin startproject.' With the basic file structure and settings in place, I adjusted the database to use PostgreSQL. Additionaly, I created an Insomnia workspace to begin testing the endpoints and validations. The first model I created was the User model. For this, I utlized the Pyjwt library to handle webtoken encoding/decoding as well as Django Rest Frameworks built in authentication. With the code below, I am able to validate the token and format, as well as store the user info in the request to be accessed down the line. 
 
 ```python
 class JWTAuthentication(BasicAuthentication):
@@ -57,9 +65,9 @@ class JWTAuthentication(BasicAuthentication):
         return (user, token)
 ```
 
-Keeping a goal of simple and straightfoward, I created only register and log in views/urls for the User model. In a more robust product, I would create additional model fields as well as views for users to maintian profiles along with the potential for other features.
+Keeping a goal of simple and straightfoward, I created only register and log in views/urls for the User model. In a more robust product, I would create additional model fields as well as views for users to maintian profiles along with the potential for other features. 
 
-With the User model functioning in Insomnia, I began work on the Shortcode model. I created fields I felt would address the user stories listed above. I included 2 methods on the model to increment the access_count and set the the last_access date when appropriate.
+With the User model functioning in Insomnia, I began work on the Shortcode. I created fields I felt would address the user stories listed above. I included 2 methods on the model to increment the access_count and set the the last_access date when appropriate.
 
 ```python
 class Shortcode(models.Model):
@@ -81,7 +89,7 @@ class Shortcode(models.Model):
         self.last_access = datetime.datetime.now()
 ```
 
-With the model created I set about to create the views. I still have reservations about some of the naming conventions I selected. In retrospect I likely would have named the model something else so as to preserve shortcode. The views include list, stats and access views for a shortcode. A user, and only a user, has access to the list of their 'owned' shortcodes as well as the stats for a specific code. I added a third view for "access" to a code. This endpoint is accessable to any user. Upon each request, the code's last_access and access_count fields are updated. The full_url is returned so the frontend can redirect the user to the proper site using a specified serializer.
+I still have reservations about some of the naming conventions I selected. In retrospect I likely would have named the model something else so as to preserve shortcode. The views include list, stats and access views for a shortcode. A user, and only a user, has access to the list of their 'owned' shortcodes as well as the stats for a specific code. I added a third view for "access" to a code. This endpoint is accessable to any user. Upon each request, the code's last_access and access_count fields are updated. The full_url is returned so the frontend can redirect the user to the proper site.
 
 ```python
 class CodeAccessView(CodeStatsView):
@@ -92,19 +100,18 @@ class CodeAccessView(CodeStatsView):
         code.add_access()
         code.set_access_date()
         code.save()
-        serialized_code = CodeAccessSerializer(code)
+        serialized_code = CodeUpdateSerializer(code)
         return Response(serialized_code.data, status=status.HTTP_200_OK)
 ```
-
-The resulting endpoints and response bodies are displayed below:
 
 ## Front End
 * Javascript
 * React / react-router-dom
 * Http-proxy-middleware
+* Axios
 * Material UI Core & Icons
 
-### Initial Wireframes
+#### Initial Wireframes
 
 Landing
 <div align='center'>
@@ -119,18 +126,21 @@ Stats
   <img src='./images/shortster_stats.png' width='50%'>
 </div>
 
-### Process
+#### Process
 
-I began by boot-strapping with 'create-react-app' and utilized a template from my immersive course. In addition to the standard react files, this template includes 'http-proxy-middleware' and the proxySetup.js file included. I then installed 'react-router-dom' as well as Material UI. I have been tinkering with MUI a bit and wanted to work a little more with a basic ThemeProvider for this project. The default overrides are included in the theme.js file.
+With Skitch, I quickly layed out the initial component wireframes. I then began by setting up the file structure with 'create-react-app' and utilized a template from my immersive course. In addition to the standard react files, this template includes 'http-proxy-middleware' and the proxySetup.js file included. I then installed 'react-router-dom' as well as Material UI. I have been tinkering with MUI a bit and wanted to work a little more with a basic ThemeProvider and styled components. The default overrides are included in the theme.js file, with styled components contained in the 'src/elements' directory.
+
+The majority of time spent on the front end was working through how best to manage conditional rendering. The challenges I faced here involved immediately rendering a menu in the header once a user has logged in via the LoginForm and updating the CodeList when a user has successfully deleted a shortcode. I still feel there is room to clean this up, but for the purposes and time frame it is currently functioning.
 
 The first steps involved laying out the basic routes and component setup. Sticking with simple, this app should only need:
 
-* a User Forms component to handle login and registration
+* a User Forms component to handle login and registration - Open to all users
 * a Home component for the list of shortcodes
 * a Stats compenent to view information for each shortcode
 * A Code Forms component to handle create/update of shortcodes
+* A Code Access component to handle accessing the shortcode link, and updating the Access Count and Last Access - Open to all users
 
-Much of the frontend work involved refactoring my initial code into functional components and using React's useState and useEffect features. In addition, conditionally rendering components and elements like the Logout option and CodeList component based on a user's authentication made this a little less straightforward at first. Additionally, I wanted a user to be logged in as soon as a registration is sucessful. Ultimately, I'd like to further clean up the forms and fetch code to better utilize custom hooks.
+
 
 
 
